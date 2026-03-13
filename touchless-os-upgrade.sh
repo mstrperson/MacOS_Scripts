@@ -75,11 +75,13 @@ if [ "$ERASE" -eq 0 ] && [ "$ENROLL" -eq 1 ]; then
 fi
 
 echo "Using installer app: $INSTALLER_APP" >&2
+echo "Removing quarantine attribute from installer app..." >&2
+sudo xattr -dr com.apple.quarantine "$INSTALLER_APP" 2>/dev/null || true
 
 if [ "$ERASE" -eq 1 ]; then
   echo "Starting startosinstall with --eraseinstall..." >&2
-  sudo "$STARTOSINSTALL" --agreetolicense --nointeraction --eraseinstall
+  sudo "$STARTOSINSTALL" --agreetolicense --nointeraction --passprompt --eraseinstall
 else
   echo "Starting startosinstall..." >&2
-  sudo "$STARTOSINSTALL" --agreetolicense --nointeraction
+  sudo "$STARTOSINSTALL" --agreetolicense --nointeraction --passprompt
 fi
