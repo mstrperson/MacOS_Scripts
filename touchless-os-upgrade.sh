@@ -15,7 +15,7 @@ starts a noninteractive OS install.
 
 Options:
   --erase     Use startosinstall --eraseinstall. Default: disabled.
-  --enroll    Run jamf enroll --prompt before any softwareupdate activity.
+  --enroll    Run jamf -enroll --prompt before any softwareupdate activity.
               Default: disabled.
   --help      Show this help text.
 
@@ -162,8 +162,8 @@ run_jamf_enroll() {
     log "Warning: Jamf enrollment will run before the software update workflow and will not survive the wipe."
   fi
 
-  log "Running jamf enroll --prompt..."
-  "$JAMF_BIN" enroll --prompt || die "jamf enroll --prompt failed."
+  log "Running jamf -enroll --prompt..."
+  "$JAMF_BIN" -enroll --prompt || die "jamf -enroll --prompt failed."
 }
 
 start_touchless_install() {
